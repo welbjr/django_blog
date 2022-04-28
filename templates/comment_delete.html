@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Deletar Comentário {% endblock title %}
+
+{% block content %}
+  <div class="card horizontal z-depth-0">
+    <div class="card-stacked">
+      <div class="card-content">
+        <h5>Tem certeza que você quer deletar o comentário abaixo?</h5>
+        <blockquote style="border-color: #2bbbad; background-color: #fafafa;">"{{ comment.content }}"</blockquote>
+      </div>
+      <div class="card-action">
+        
+        <form method="post">
+          {% csrf_token %}
+          <a href="{% url 'post_detail' comment.post.pk %}" class="grey-text text-darken-1">Voltar</a>
+          <button 
+            type="submit" 
+            class="red-text" 
+            style="border: none; background-color: inherit; cursor: pointer; text-transform: uppercase;"
+          >
+            Deletar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

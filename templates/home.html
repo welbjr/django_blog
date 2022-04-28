@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+  <!-- Cartão de boas-vindas e breve descrição do projeto -->
+  <div class="card horizontal z-depth-0">
+    <div class="card-stacked">
+      <div class="card-content">
+        <h2 class="header">Bem-Vindo</h2>
+        <h5>
+          Esta é uma aplicação para criar e ler posts, 
+          como um <a href="https://medium.com/" target="_blank" class="teal-text">Medium</a>.
+          Clique em "Ver posts" para ser redirecionado para os posts ou
+          crie uma conta para escrever os seus próprios.
+        </h5>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'post_list' %}" class="teal-text">Ver posts</a>
+        <a href="{% url 'login' %}" class="teal-text">Entrar</a>
+      </div>
+    </div>
+  </div>
+            
+{% endblock content %}

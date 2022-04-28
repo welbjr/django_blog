@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %} Post | {{ post.user }} {% endblock title %}
+
+{% block content %}
+
+<!-- Post com título, conteúdo, nome do usuário e data -->
+<ul class="collection with-header">
+  <li class="collection-item">
+    <h3>{{ post.title }}</h3>
+    <p class="flow-text" style="line-height: 35px;">{{ post.content }}</p>
+    <p>{{ post.user }}, {{ post.created_at }}</p>
+
+    <!-- Mostra os botões de editar e apagar caso o post
+    pertencer ao usuário logado -->
+    {% if post.user == user %}
+      <div style="margin-left: auto; display: table;">
+        <a 
+          class="btn btn-small grey darken-1" 
+          href="{% url 'post_update' post.pk %}"
+        >
+          <i class="material-icons">edit</i>
+        </a>
+        &nbsp;
+        <a 
+          class="btn btn-small red accent-2" 
+          href="{% url 'post_delete' post.pk %}"
+        >
+          <i class="material-icons">delete</i>
+        </a>
+      </div>
+    {% endif %}
+  </li>
+</ul>
+
+ <!-- Input para criar um comentário -->
+<div class="row white" style="border: 1px solid #e0e0e0;">
+  <div class="row">
+    <form action="{% url 'comment_create' %}" method="post">
+      {% csrf_token %}
+      <div class="input-field col s12" style="display: flex;">
+        <textarea 
+          name="comment" 
+          placeholder="Adicione um comentário..." 
+          class="materialize-textarea"
+          required
+        ></textarea>
+        <button type="submit" class="waves-effect waves-teal btn grey lighten-3 grey-text text-darken-4 bold-text">
+          <i class="material-icons center black-text">send</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Lista de comentários -->
+<ul class="collection with-header">
+  <li class="collection-header"><h4>Comentários</h4></li>
+
+  {% for comment in post.comments.all %}
+    <li class="collection-item">
+      <p><strong>{{ comment.user }}</strong></p>
+      <p>{{ comment.content }}</p>
+
+      <!-- Mostra os botões de editar e apagar caso o comentário 
+      pertencer ao usuário logado -->
+      {% if comment.user == user %}
+        <div style="margin-left: auto; display: table;">
+          <a href="{% url 'comment_update' comment.pk %}" class="btn btn-small grey darken-1">
+            <i class="material-icons">edit</i>
+          </a>
+          &nbsp;
+          <a href="{% url 'comment_delete' comment.pk %}" class="btn btn-small red accent-2">
+            <i class="material-icons">delete</i>
+          </a>
+        </div>
+      {% endif %}
+
+    </li>
+  {% endfor %}
+
+</ul>
+
+{% endblock content %}

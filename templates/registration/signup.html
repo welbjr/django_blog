@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock title %}
+
+{% block content %}
+
+  <form method="post" style="margin-top: 20px;">
+    {% csrf_token %}
+    
+    <!-- Avisos de erros ao tentar criar um conta. Ex: senha muito curta -->
+    {% if form.errors %}
+      <div class="card-panel red lighten-5">
+        <h5 class="">Erro:</h5>
+        {% for key,value in form.errors.items %} 
+          <p>{{ value }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Renderiza os campos dos formulário, mas sem os detalhes, já
+    que estes serão renderizados se houver erros (tratado acima) -->
+    {% for field in form %}
+      {{ field.label_tag}} {{ field }}
+    {% endfor %}
+
+    <button 
+      class="waves-effect waves-teal btn teal lighten-1 grey-text text-lighten-5 bold-text"
+      type="submit"
+    >
+      <strong>Criar</strong>
+    </button>
+  </form>
+
+{% endblock content %}

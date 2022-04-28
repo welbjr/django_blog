@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Posts {% endblock title %}
+
+{% block content %}
+
+  <!-- Input para criar um novo post -->
+  <a 
+    class="z-depth-0 waves-effect waves-teal btn-large white accent-1 grey-text text-darken-4 bold-text" 
+    style="width: 100%; display: flex; margin-top: 20px; border: 1px solid #e0e0e0;"
+    href="{% url 'post_create' %}"
+  >
+    <i class="material-icons left">add</i>
+    Criar Post
+  </a>
+
+  <!-- Lista de posts -->
+  {% for post in posts %}
+    <ul class="collection with-header">
+      <li class="collection-item">
+        <h3><a href="{% url 'post_detail' post.pk  %}" class="black-text">{{ post.title }}</a></h3>
+        <h5 class="grey-text text-darken-1">{{ post.description }}</h5>
+        <p>{{ post.user }}, {{ post.created_at }}</p>
+      </li>
+    </ul>
+  {% endfor %}
+            
+{% endblock content %}
