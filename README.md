@@ -1,3 +1,5 @@
+Link para a aplicação no Heroku: https://polar-headland-96686.herokuapp.com/
+
 # Apresentação
 
 Aplicação em Django para criar e ler posts, como um [Medium](https://medium.com/).
